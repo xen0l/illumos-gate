@@ -10,7 +10,7 @@
  */
 
 /*
- * Copyright 2013 Nexenta Inc.  All rights reserved.
+ * Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
  */
 
 /* Based on the NetBSD virtio driver by Minoura Makoto. */
