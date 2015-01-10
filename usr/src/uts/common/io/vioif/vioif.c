@@ -693,10 +693,11 @@ vioif_add_rx(struct vioif_softc *sc, int kmflag)
 
 	ve = vq_alloc_entry(sc->sc_rx_vq);
 	if (!ve) {
-		/* Out of free descriptors - ring already full. */
-		/* would be better to update sc_norxdescavail */
-		/* but MAC does not ask for this info */
-		/* hence update sc_norecvbuf */
+		/* Out of free descriptors - ring already full.
+		 * would be better to update sc_norxdescavail
+		 * but MAC does not ask for this info
+		 * hence update sc_norecvbuf
+		 */
 		sc->sc_norecvbuf ++;
 		goto exit_vq;
 	}
@@ -847,8 +848,9 @@ vioif_process_rx(struct vioif_softc *sc)
 			 */
 			sc->sc_rxbufs[ve->qe_index] = NULL;
 		}
-		/* virtio-net does not provide the info if this packet */
-		/* is multicast or broadcast. So we have to check it */
+		/* virtio-net does not provide the info if this packet
+		 * is multicast or broadcast. So we have to check it
+		 */
 		if (mp->b_rptr[0] & 0x1) {
 			if (bcmp(mp->b_rptr, vioif_broadcast, ETHERADDRL) != 0)
 				sc->sc_multircv ++;
