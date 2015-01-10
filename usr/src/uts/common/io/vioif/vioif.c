@@ -566,7 +566,7 @@ vioif_alloc_mems(struct vioif_softc *sc)
 	}
 
 	/*
-	 * We don't allocate the rx vioif_buffs, just the pointers, as
+	 * We don't allocate the rx vioif_bufs, just the pointers, as
 	 * rx vioif_bufs can be loaned upstream, and we don't know the
 	 * total number we need.
 	 */
@@ -842,7 +842,7 @@ vioif_process_rx(struct vioif_softc *sc)
 
 			atomic_inc_ulong(&sc->sc_rxloan);
 			/*
-			 * Buffer loanded, we will have to allocte a new one
+			 * Buffer loanded, we will have to allocate a new one
 			 * for this slot.
 			 */
 			sc->sc_rxbufs[ve->qe_index] = NULL;
@@ -1768,7 +1768,7 @@ vioif_attach(dev_info_t *devinfo, ddi_attach_cmd_t cmd)
 
 	/*
 	 * Register layout determined, can now access the
-	 * device-speciffic bits
+	 * device-specific bits
 	 */
 	vioif_get_mac(sc);
 
@@ -1809,7 +1809,7 @@ vioif_attach(dev_info_t *devinfo, ddi_attach_cmd_t cmd)
 		goto exit_alloc_mems;
 
 	if ((macp = mac_alloc(MAC_VERSION)) == NULL) {
-		dev_err(devinfo, CE_WARN, "Failed to alocate a mac_register");
+		dev_err(devinfo, CE_WARN, "Failed to allocate a mac_register");
 		goto exit_macalloc;
 	}
 
