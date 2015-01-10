@@ -1200,53 +1200,53 @@ vioif_stat(void *arg, uint_t stat, uint64_t *val)
 	struct vioif_softc *sc = arg;
 
 	switch (stat) {
-		case MAC_STAT_IERRORS:
-			*val = sc->sc_ierrors;
-			break;
-		case MAC_STAT_OERRORS:
-			*val = sc->sc_oerrors;
-			break;
-		case MAC_STAT_MULTIRCV:
-			*val = sc->sc_multircv;
-			break;
-		case MAC_STAT_BRDCSTRCV:
-			*val = sc->sc_brdcstrcv;
-			break;
-		case MAC_STAT_MULTIXMT:
-			*val = sc->sc_multixmt;
-			break;
-		case MAC_STAT_BRDCSTXMT:
-			*val = sc->sc_brdcstxmt;
-			break;
-		case MAC_STAT_IPACKETS:
-			*val = sc->sc_ipackets;
-			break;
-		case MAC_STAT_RBYTES:
-			*val = sc->sc_rbytes;
-			break;
-		case MAC_STAT_OPACKETS:
-			*val = sc->sc_opackets;
-			break;
-		case MAC_STAT_OBYTES:
-			*val = sc->sc_obytes;
-			break;
-		case MAC_STAT_NORCVBUF:
-			*val = sc->sc_norecvbuf;
-			break;
-		case MAC_STAT_NOXMTBUF:
-			*val = sc->sc_notxbuf;
-			break;
-		case MAC_STAT_IFSPEED:
-			/* always 1 Gbit */
-			*val = 1000000000ULL;
-			break;
-		case ETHER_STAT_LINK_DUPLEX:
-			/* virtual device, always full-duplex */
-			*val = LINK_DUPLEX_FULL;
-			break;
+	case MAC_STAT_IERRORS:
+		*val = sc->sc_ierrors;
+		break;
+	case MAC_STAT_OERRORS:
+		*val = sc->sc_oerrors;
+		break;
+	case MAC_STAT_MULTIRCV:
+		*val = sc->sc_multircv;
+		break;
+	case MAC_STAT_BRDCSTRCV:
+		*val = sc->sc_brdcstrcv;
+		break;
+	case MAC_STAT_MULTIXMT:
+		*val = sc->sc_multixmt;
+		break;
+	case MAC_STAT_BRDCSTXMT:
+		*val = sc->sc_brdcstxmt;
+		break;
+	case MAC_STAT_IPACKETS:
+		*val = sc->sc_ipackets;
+		break;
+	case MAC_STAT_RBYTES:
+		*val = sc->sc_rbytes;
+		break;
+	case MAC_STAT_OPACKETS:
+		*val = sc->sc_opackets;
+		break;
+	case MAC_STAT_OBYTES:
+		*val = sc->sc_obytes;
+		break;
+	case MAC_STAT_NORCVBUF:
+		*val = sc->sc_norecvbuf;
+		break;
+	case MAC_STAT_NOXMTBUF:
+		*val = sc->sc_notxbuf;
+		break;
+	case MAC_STAT_IFSPEED:
+		/* always 1 Gbit */
+		*val = 1000000000ULL;
+		break;
+	case ETHER_STAT_LINK_DUPLEX:
+		/* virtual device, always full-duplex */
+		*val = LINK_DUPLEX_FULL;
+		break;
 
-		default:
-			return (ENOTSUP);
+	default:
+		return (ENOTSUP);
 	}
 
 	return (DDI_SUCCESS);
@@ -1294,25 +1294,25 @@ vioif_setprop(void *arg, const char *pr_name, mac_prop_id_t pr_num,
 	int err;
 
 	switch (pr_num) {
-		case MAC_PROP_MTU:
-			new_mtu = pr_val;
+	case MAC_PROP_MTU:
+		new_mtu = pr_val;
 
-			if (*new_mtu > MAX_MTU) {
-				return (EINVAL);
-			}
+		if (*new_mtu > MAX_MTU) {
+			return (EINVAL);
+		}
 
-			err = mac_maxsdu_update(sc->sc_mac_handle, *new_mtu);
-			if (err) {
-				return (err);
-			}
-			break;
-		case MAC_PROP_PRIVATE:
-			err = vioif_set_prop_private(sc, pr_name,
-			    pr_valsize, pr_val);
-			if (err)
-				return (err);
-		default:
-			return (ENOTSUP);
+		err = mac_maxsdu_update(sc->sc_mac_handle, *new_mtu);
+		if (err) {
+			return (err);
+		}
+		break;
+	case MAC_PROP_PRIVATE:
+		err = vioif_set_prop_private(sc, pr_name,
+		    pr_valsize, pr_val);
+		if (err)
+			return (err);
+	default:
+		return (ENOTSUP);
 	}
 
 	return (0);
@@ -1352,12 +1352,12 @@ vioif_getprop(void *arg, const char *pr_name, mac_prop_id_t pr_num,
 	int err = ENOTSUP;
 
 	switch (pr_num) {
-		case MAC_PROP_PRIVATE:
-			err = vioif_get_prop_private(sc, pr_name,
-			    pr_valsize, pr_val);
-			break;
-		default:
-			break;
+	case MAC_PROP_PRIVATE:
+		err = vioif_get_prop_private(sc, pr_name,
+		    pr_valsize, pr_val);
+		break;
+	default:
+		break;
 	}
 	return (err);
 }
@@ -1369,29 +1369,28 @@ vioif_propinfo(void *arg, const char *pr_name, mac_prop_id_t pr_num,
 	struct vioif_softc *sc = arg;
 
 	switch (pr_num) {
+	case MAC_PROP_MTU:
+		mac_prop_info_set_range_uint32(prh, ETHERMIN, MAX_MTU);
+		break;
 
-		case MAC_PROP_MTU:
-			mac_prop_info_set_range_uint32(prh, ETHERMIN, MAX_MTU);
-			break;
+	case MAC_PROP_PRIVATE: {
+		char valstr[64];
+		int value;
 
-		case MAC_PROP_PRIVATE: {
-			char valstr[64];
-			int value;
+		bzero(valstr, sizeof (valstr));
+		if (strcmp(pr_name, vioif_txcopy_thresh) == 0) {
 
-			bzero(valstr, sizeof (valstr));
-			if (strcmp(pr_name, vioif_txcopy_thresh) == 0) {
-
-				value = sc->sc_txcopy_thresh;
-			} else	if (strcmp(pr_name,
-			    vioif_rxcopy_thresh) == 0) {
-				value = sc->sc_rxcopy_thresh;
-			} else {
-				return;
-			}
-			(void) snprintf(valstr, sizeof (valstr), "%d", value);
+			value = sc->sc_txcopy_thresh;
+		} else	if (strcmp(pr_name,
+		    vioif_rxcopy_thresh) == 0) {
+			value = sc->sc_rxcopy_thresh;
+		} else {
+			return;
 		}
-		default:
-			break;
+		(void) snprintf(valstr, sizeof (valstr), "%d", value);
+	}
+	default:
+		break;
 	}
 }
 
