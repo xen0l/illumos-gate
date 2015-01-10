@@ -1888,7 +1888,7 @@ vioif_detach(dev_info_t *devinfo, ddi_detach_cmd_t cmd)
 	}
 
 	if (sc->sc_rxloan) {
-		cmn_err(CE_NOTE, "Some rx buffers are still upstream, "
+		cmn_err(CE_WARN, "Some rx buffers are still upstream, "
 		    "Not detaching");
 		return (DDI_FAILURE);
 	}
