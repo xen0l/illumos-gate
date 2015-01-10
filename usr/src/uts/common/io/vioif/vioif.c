@@ -698,7 +698,7 @@ vioif_add_rx(struct vioif_softc *sc, int kmflag)
 		 * but MAC does not ask for this info
 		 * hence update sc_norecvbuf
 		 */
-		sc->sc_norecvbuf ++;
+		sc->sc_norecvbuf++;
 		goto exit_vq;
 	}
 	buf = sc->sc_rxbufs[ve->qe_index];
@@ -712,7 +712,7 @@ vioif_add_rx(struct vioif_softc *sc, int kmflag)
 	/* Still nothing? Bye. */
 	if (!buf) {
 		dev_err(sc->sc_dev, CE_WARN, "Can't allocate rx buffer");
-		sc->sc_norecvbuf ++;
+		sc->sc_norecvbuf++;
 		goto exit_buf;
 	}
 
@@ -800,7 +800,7 @@ vioif_process_rx(struct vioif_softc *sc)
 		if (len < sizeof (struct virtio_net_hdr)) {
 			dev_err(sc->sc_dev, CE_WARN, "RX: Cnain too small: %u",
 			    len - (uint32_t)sizeof (struct virtio_net_hdr));
-			sc->sc_ierrors ++;
+			sc->sc_ierrors++;
 			virtio_free_chain(ve);
 			continue;
 		}
@@ -814,8 +814,8 @@ vioif_process_rx(struct vioif_softc *sc)
 		if (len < sc->sc_rxcopy_thresh) {
 			mp = allocb(len, 0);
 			if (!mp) {
-				sc->sc_norecvbuf ++;
-				sc->sc_ierrors ++;
+				sc->sc_norecvbuf++;
+				sc->sc_ierrors++;
 
 				virtio_free_chain(ve);
 				break;
@@ -831,8 +831,8 @@ vioif_process_rx(struct vioif_softc *sc)
 			    sizeof (struct virtio_net_hdr) +
 			    VIOIF_IP_ALIGN, len, 0, &buf->rb_frtn);
 			if (!mp) {
-				sc->sc_norecvbuf ++;
-				sc->sc_ierrors ++;
+				sc->sc_norecvbuf++;
+				sc->sc_ierrors++;
 
 				virtio_free_chain(ve);
 				break;
@@ -851,13 +851,13 @@ vioif_process_rx(struct vioif_softc *sc)
 		 */
 		if (mp->b_rptr[0] & 0x1) {
 			if (bcmp(mp->b_rptr, vioif_broadcast, ETHERADDRL) != 0)
-				sc->sc_multircv ++;
+				sc->sc_multircv++;
 			else
-				sc->sc_brdcstrcv ++;
+				sc->sc_brdcstrcv++;
 		}
 
 		sc->sc_rbytes += len;
-		sc->sc_ipackets ++;
+		sc->sc_ipackets++;
 
 		virtio_free_chain(ve);
 		mac_rx(sc->sc_mac_handle, NULL, mp);
@@ -979,8 +979,8 @@ vioif_tx_external(struct vioif_softc *sc, struct vq_entry *ve, mblk_t *mp,
 
 		ret = vioif_tx_lazy_handle_alloc(sc, buf, i);
 		if (ret != DDI_SUCCESS) {
-			sc->sc_notxbuf ++;
-			sc->sc_oerrors ++;
+			sc->sc_notxbuf++;
+			sc->sc_oerrors++;
 			goto exit_lazy_alloc;
 		}
 		ret = ddi_dma_addr_bind_handle(
@@ -990,7 +990,7 @@ vioif_tx_external(struct vioif_softc *sc, struct vq_entry *ve, mblk_t *mp,
 		    DDI_DMA_SLEEP, NULL, &dmac, &ncookies);
 
 		if (ret != DDI_SUCCESS) {
-			sc->sc_oerrors ++;
+			sc->sc_oerrors++;
 			dev_err(sc->sc_dev, CE_NOTE,
 			    "TX: Failed to bind external handle");
 			goto exit_bind;
@@ -1001,8 +1001,8 @@ vioif_tx_external(struct vioif_softc *sc, struct vq_entry *ve, mblk_t *mp,
 			dev_err(sc->sc_dev, CE_NOTE,
 			    "TX: Indirect descriptor table limit reached."
 			    " It took %d fragments.", i);
-			sc->sc_notxbuf ++;
-			sc->sc_oerrors ++;
+			sc->sc_notxbuf++;
+			sc->sc_oerrors++;
 
 			ret = DDI_FAILURE;
 			goto exit_limit;
@@ -1060,7 +1060,7 @@ vioif_send(struct vioif_softc *sc, mblk_t *mp)
 	ve = vq_alloc_entry(sc->sc_tx_vq);
 
 	if (!ve) {
-		sc->sc_notxbuf ++;
+		sc->sc_notxbuf++;
 		/* Out of free descriptors - try later. */
 		return (B_FALSE);
 	}
@@ -1113,9 +1113,9 @@ vioif_send(struct vioif_softc *sc, mblk_t *mp)
 	/* meanwhile update the statistic */
 	if (mp->b_rptr[0] & 0x1) {
 		if (bcmp(mp->b_rptr, vioif_broadcast, ETHERADDRL) != 0)
-				sc->sc_multixmt ++;
+				sc->sc_multixmt++;
 			else
-				sc->sc_brdcstxmt ++;
+				sc->sc_brdcstxmt++;
 	}
 
 	/*
@@ -1133,7 +1133,7 @@ vioif_send(struct vioif_softc *sc, mblk_t *mp)
 
 	virtio_push_chain(ve, B_TRUE);
 
-	sc->sc_opackets ++;
+	sc->sc_opackets++;
 	sc->sc_obytes += msg_size;
 
 	return (B_TRUE);
