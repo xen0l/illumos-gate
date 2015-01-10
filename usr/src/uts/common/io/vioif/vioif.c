@@ -382,15 +382,11 @@ vioif_link_state(struct vioif_softc *sc)
 		if (virtio_read_device_config_2(&sc->sc_virtio,
 		    VIRTIO_NET_CONFIG_STATUS) & VIRTIO_NET_S_LINK_UP) {
 
-			dev_err(sc->sc_dev, CE_NOTE, "Link up\n");
 			return (LINK_STATE_UP);
 		} else {
-			dev_err(sc->sc_dev, CE_NOTE, "Link down\n");
 			return (LINK_STATE_DOWN);
 		}
 	}
-
-	dev_err(sc->sc_dev, CE_NOTE, "Link assumed up\n");
 
 	return (LINK_STATE_UP);
 }
