@@ -1748,7 +1748,7 @@ vioif_attach(dev_info_t *devinfo, ddi_attach_cmd_t cmd)
 	    sizeof (struct vioif_rx_buf), 0, vioif_rx_construct,
 	    vioif_rx_destruct, NULL, sc, NULL, KM_SLEEP);
 	if (sc->sc_rxbuf_cache == NULL) {
-		cmn_err(CE_NOTE, "Can't allocate the buffer cache");
+		dev_err(sc->sc_dev, CE_WARN, "Can't allocate the buffer cache");
 		goto exit_cache;
 	}
 
