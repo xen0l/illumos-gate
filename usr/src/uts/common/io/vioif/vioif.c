@@ -814,7 +814,6 @@ vioif_process_rx(struct vioif_softc *sc)
 		if (len < sc->sc_rxcopy_thresh) {
 			mp = allocb(len, 0);
 			if (!mp) {
-				cmn_err(CE_WARN, "Failed to allocale mblock!");
 				sc->sc_norecvbuf ++;
 				sc->sc_ierrors ++;
 
@@ -832,7 +831,6 @@ vioif_process_rx(struct vioif_softc *sc)
 			    sizeof (struct virtio_net_hdr) +
 			    VIOIF_IP_ALIGN, len, 0, &buf->rb_frtn);
 			if (!mp) {
-				cmn_err(CE_WARN, "Failed to allocale mblock!");
 				sc->sc_norecvbuf ++;
 				sc->sc_ierrors ++;
 
@@ -1300,17 +1298,11 @@ vioif_setprop(void *arg, const char *pr_name, mac_prop_id_t pr_num,
 			new_mtu = pr_val;
 
 			if (*new_mtu > MAX_MTU) {
-				dev_err(sc->sc_dev, CE_WARN,
-				    "Requested mtu (%d) out of range",
-				    *new_mtu);
 				return (EINVAL);
 			}
 
 			err = mac_maxsdu_update(sc->sc_mac_handle, *new_mtu);
 			if (err) {
-				dev_err(sc->sc_dev, CE_WARN,
-				    "Failed to set the requested mtu (%d)",
-				    *new_mtu);
 				return (err);
 			}
 			break;
