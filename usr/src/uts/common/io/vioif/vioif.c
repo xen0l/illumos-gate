@@ -1448,78 +1448,8 @@ vioif_show_features(struct vioif_softc *sc, const char *prefix,
     uint32_t features)
 {
 	char buf[512];
-	char *bufp = buf;
-	char *bufend = buf + sizeof (buf);
 
-	/* LINTED E_PTRDIFF_OVERFLOW */
-	bufp += snprintf(bufp, bufend - bufp, prefix);
-
-	/* LINTED E_PTRDIFF_OVERFLOW */
-	bufp += virtio_show_features(features, bufp, bufend - bufp);
-
-	/* LINTED E_PTRDIFF_OVERFLOW */
-	bufp += snprintf(bufp, bufend - bufp, "Vioif ( ");
-
-	if (features & VIRTIO_NET_F_CSUM)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "CSUM ");
-	if (features & VIRTIO_NET_F_GUEST_CSUM)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GUEST_CSUM ");
-	if (features & VIRTIO_NET_F_MAC)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "MAC ");
-	if (features & VIRTIO_NET_F_GSO)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GSO ");
-	if (features & VIRTIO_NET_F_GUEST_TSO4)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GUEST_TSO4 ");
-	if (features & VIRTIO_NET_F_GUEST_TSO6)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GUEST_TSO6 ");
-	if (features & VIRTIO_NET_F_GUEST_ECN)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GUEST_ECN ");
-	if (features & VIRTIO_NET_F_GUEST_UFO)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "GUEST_UFO ");
-	if (features & VIRTIO_NET_F_HOST_TSO4)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "HOST_TSO4 ");
-	if (features & VIRTIO_NET_F_HOST_TSO6)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "HOST_TSO6 ");
-	if (features & VIRTIO_NET_F_HOST_ECN)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "HOST_ECN ");
-	if (features & VIRTIO_NET_F_HOST_UFO)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "HOST_UFO ");
-	if (features & VIRTIO_NET_F_MRG_RXBUF)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "MRG_RXBUF ");
-	if (features & VIRTIO_NET_F_STATUS)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "STATUS ");
-	if (features & VIRTIO_NET_F_CTRL_VQ)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "CTRL_VQ ");
-	if (features & VIRTIO_NET_F_CTRL_RX)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "CTRL_RX ");
-	if (features & VIRTIO_NET_F_CTRL_VLAN)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "CTRL_VLAN ");
-	if (features & VIRTIO_NET_F_CTRL_RX_EXTRA)
-		/* LINTED E_PTRDIFF_OVERFLOW */
-		bufp += snprintf(bufp, bufend - bufp, "CTRL_RX_EXTRA ");
-
-	/* LINTED E_PTRDIFF_OVERFLOW */
-	bufp += snprintf(bufp, bufend - bufp, ")");
-	*bufp = '\0';
-
-	dev_err(sc->sc_dev, CE_NOTE, "%s", buf);
+	dev_err(sc->sc_dev, CE_NOTE, "%s %s Vioif (%b)", prefix, virtio_show_features(...), features, "\020\1CSUM\2GUEST_CSUM\3MAC\4GSO\5GUEST_TSO4\5GUEST_TSO6\6GUEST_ECN\7GUEST_UFO\8HOST_TSO4\9HOST_TSO6\10HOST_ECN\11HOST_UFO\12MRG_RXBUF\13STATUS\14CTRL_VQ\15CTRL_RX\16CTRL_VLAN\17CTRL_RX_EXTRA", buf)
 }
 
 /*
@@ -1541,7 +1471,7 @@ vioif_dev_features(struct vioif_softc *sc)
 	    VIRTIO_F_NOTIFY_ON_EMPTY);
 
 	vioif_show_features(sc, "Host features: ", host_features);
-	vioif_show_features(sc, "Negotiated features: ",
+	vioif_show_features(sc,  ",
 	    sc->sc_virtio.sc_features);
 
 	if (!(sc->sc_virtio.sc_features & VIRTIO_F_RING_INDIRECT_DESC)) {
