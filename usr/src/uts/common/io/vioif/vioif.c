@@ -1452,7 +1452,7 @@ vioif_show_features(struct vioif_softc *sc, const char *prefix,
 {
 	char buf[512];
 
-	dev_err(sc->sc_dev, CE_NOTE, "%s %s Vioif (%b)", prefix, virtio_show_features(...), features, "\020\1CSUM\2GUEST_CSUM\3MAC\4GSO\5GUEST_TSO4\5GUEST_TSO6\6GUEST_ECN\7GUEST_UFO\8HOST_TSO4\9HOST_TSO6\10HOST_ECN\11HOST_UFO\12MRG_RXBUF\13STATUS\14CTRL_VQ\15CTRL_RX\16CTRL_VLAN\17CTRL_RX_EXTRA", buf)
+	dev_err(sc->sc_dev, CE_NOTE, "%s %s Vioif (%b)", prefix, virtio_show_features(...), features, "\020\1CSUM\2GUEST_CSUM\3MAC\4GSO\5GUEST_TSO4\5GUEST_TSO6\6GUEST_ECN\7GUEST_UFO\8HOST_TSO4\9HOST_TSO6\10HOST_ECN\11HOST_UFO\12MRG_RXBUF\13STATUS\14CTRL_VQ\15CTRL_RX\16CTRL_VLAN\17CTRL_RX_EXTRA", buf);
 }
 
 /*
