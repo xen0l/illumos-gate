@@ -11,6 +11,7 @@
 
 /*
  * Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+ * Copyright (c) 2014, 2015 by Delphix. All rights reserved.
  */
 
 /* Based on the NetBSD virtio driver by Minoura Makoto. */
@@ -1426,7 +1427,7 @@ vioif_getcapab(void *arg, mac_capab_t cap, void *cap_data)
 }
 
 static mac_callbacks_t vioif_m_callbacks = {
-	.mc_callbacks	= MC_GETCAPAB,
+	.mc_callbacks   = (MC_GETCAPAB | MC_SETPROP | MC_GETPROP | MC_PROPINFO),
 	.mc_getstat	= vioif_stat,
 	.mc_start	= vioif_start,
 	.mc_stop	= vioif_stop,
