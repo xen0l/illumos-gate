@@ -98,7 +98,7 @@
 
 #include <sys/ddi.h>
 #include <sys/sunddi.h>
-#include <sys/signalfd.h>
+#include <compat/linux/sys/signalfd.h>
 #include <sys/conf.h>
 #include <sys/sysmacros.h>
 #include <sys/filio.h>

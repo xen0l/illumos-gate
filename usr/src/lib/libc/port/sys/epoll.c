@@ -14,7 +14,7 @@
  */
 
 #include <sys/types.h>
-#include <sys/epoll.h>
+#include <compat/linux/sys/epoll.h>
 #include <sys/devpoll.h>
 #include <unistd.h>
 #include <errno.h>

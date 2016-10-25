@@ -47,7 +47,7 @@
 #include <sys/rctl.h>
 #include <sys/resource.h>
 #include <sys/schedctl.h>
-#include <sys/epoll.h>
+#include <compat/linux/sys/epoll.h>
 
 #define	RESERVED	1
 

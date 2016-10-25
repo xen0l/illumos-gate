@@ -15,7 +15,7 @@ epoll_wait, epoll_pwait \- wait for epoll events
 
 .LP
 .nf
-#include <sys/epoll.h>
+#include <compat/linux/sys/epoll.h>
 
 \fBint\fR \fBepoll_wait\fR(\fBint\fR \fIepfd\fR, \fBstruct epoll_event *\fR\fIevents\fR, 
      \fBint\fR \fImaxevents\fR, \fBint\fR \fItimeout\fR);
