@@ -133,6 +133,7 @@ $(PMTMO_FILE) pmtmo_file: $(PATCH_MAKEUP_TABLE)
 #
 COMMON_HDRDIRS= common/avs \
 		common/c2 \
+		common/compat/linux \
 		common/des \
 		common/fs \
 		common/gssapi \
