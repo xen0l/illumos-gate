@@ -217,7 +217,6 @@ CHKHDRS=			\
 	emul64cmd.h		\
 	emul64var.h		\
 	epm.h			\
-	epoll.h			\
 	errno.h			\
 	errorq.h		\
 	errorq_impl.h		\
@@ -513,7 +512,6 @@ CHKHDRS=			\
 	sid.h			\
 	siginfo.h		\
 	signal.h		\
-	signalfd.h		\
 	skein.h			\
 	sleepq.h		\
 	smbios.h		\
@@ -593,7 +591,6 @@ CHKHDRS=			\
 	time_std_impl.h		\
 	timeb.h			\
 	timer.h			\
-	timerfd.h		\
 	times.h			\
 	timex.h			\
 	timod.h			\
