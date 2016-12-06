@@ -1922,7 +1922,7 @@ LINT_DEFS	+= -Dunix
 #	It is a bug in the current compilation system that the assember
 #	can't process the -Y I, flag.
 #
-NATIVE_INC_PATH += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common
+NATIVE_INC_PATH += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common -I$(UTSBASE)/common/compat/linux
 AS_INC_PATH	+= $(INC_PATH) -I$(UTSBASE)/common -I$(UTSBASE)/common/compat/linux
 INCLUDE_PATH    += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common -I$(UTSBASE)/common/compat/linux
 
