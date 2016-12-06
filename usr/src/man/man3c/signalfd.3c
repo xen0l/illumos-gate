@@ -17,7 +17,7 @@
 .Nm signalfd
 .Nd create or modify a file descriptor for signal handling
 .Sh SYNOPSIS
-.In compat/linux/sys/signalfd.h
+.In sys/signalfd.h
 .
 .Ft int
 .Fo signalfd

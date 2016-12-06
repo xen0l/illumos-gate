@@ -15,7 +15,7 @@ epoll_create, epoll_create1 \- create an epoll instance
 
 .LP
 .nf
-#include <compat/linux/sys/epoll.h>
+#include <sys/epoll.h>
 
 \fBint\fR \fBepoll_create\fR(\fBint\fR \fIsize\fR);
 .fi

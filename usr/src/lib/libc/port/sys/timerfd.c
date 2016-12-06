@@ -13,7 +13,7 @@
  * Copyright (c) 2015, Joyent, Inc.  All rights reserved.
  */
 
-#include <compat/linux/sys/timerfd.h>
+#include <sys/timerfd.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>

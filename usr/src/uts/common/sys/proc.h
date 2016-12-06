@@ -47,7 +47,7 @@
 #include <sys/list.h>
 #include <sys/avl.h>
 #include <sys/door_impl.h>
-#include <compat/linux/sys/signalfd.h>
+#include <sys/signalfd.h>
 #include <sys/secflags.h>
 
 #ifdef	__cplusplus

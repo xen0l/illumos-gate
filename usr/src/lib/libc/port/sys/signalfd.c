@@ -13,7 +13,7 @@
  * Copyright 2015, Joyent, Inc.
  */
 
-#include <compat/linux/sys/signalfd.h>
+#include <sys/signalfd.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>

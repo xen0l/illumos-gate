@@ -60,7 +60,7 @@
 #include <sys/cyclic.h>
 #include <sys/dtrace.h>
 #include <sys/sdt.h>
-#include <compat/linux/sys/signalfd.h>
+#include <sys/signalfd.h>
 
 const k_sigset_t nullsmask = {0, 0, 0};
 

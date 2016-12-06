@@ -20,7 +20,7 @@
 .Nm timerfd_gettime
 .Nd create and manipulate timers via a file descriptor interface
 .Sh SYNOPSIS
-.In compat/linux/sys/timerfd.h
+.In sys/timerfd.h
 .Ft int
 .Fo timerfd_create
 .Fa "int clockid"

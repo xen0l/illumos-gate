@@ -21,7 +21,7 @@
 
 #include <sys/ddi.h>
 #include <sys/sunddi.h>
-#include <compat/linux/sys/timerfd.h>
+#include <sys/timerfd.h>
 #include <sys/conf.h>
 #include <sys/vmem.h>
 #include <sys/sysmacros.h>
