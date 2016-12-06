@@ -1114,7 +1114,8 @@ MAPFILES =	$(LIBCDIR)/port/mapfile-vers
 
 CFLAGS +=	$(EXTN_CFLAGS)
 CPPFLAGS=	-D_REENTRANT -Dsparc $(EXTN_CPPFLAGS) $(THREAD_DEBUG) \
-		-I$(LIBCBASE)/inc -I$(LIBCDIR)/inc $(CPPFLAGS.master)
+		-I$(LIBCBASE)/inc -I$(LIBCDIR)/inc -I$(ROOT)/usr/include/compat/linux \
+		$(CPPFLAGS.master)
 ASFLAGS=	$(EXTN_ASFLAGS) -K pic -P -D__STDC__ -D_ASM $(CPPFLAGS) $(sparc_AS_XARCH)
 
 # As a favor to the dtrace syscall provider, libc still calls the

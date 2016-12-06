@@ -1055,7 +1055,8 @@ MAPFILES =	$(LIBCDIR)/port/mapfile-vers
 sparcv9_C_PICFLAGS= -K PIC
 CFLAGS64 +=	$(EXTN_CFLAGS)
 CPPFLAGS=	-D_REENTRANT -Dsparc $(EXTN_CPPFLAGS) $(THREAD_DEBUG) \
-		-I$(LIBCBASE)/inc -I$(LIBCDIR)/inc $(CPPFLAGS.master)
+		-I$(LIBCBASE)/inc -I$(LIBCDIR)/inc -I$(ROOT)/usr/include/compat/linux \
+		$(CPPFLAGS.master)
 ASFLAGS=	$(EXTN_ASFLAGS) -K PIC -P -D__STDC__ -D_ASM -D__sparcv9 $(CPPFLAGS) \
 		$(sparcv9_AS_XARCH)
 

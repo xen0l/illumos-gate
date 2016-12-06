@@ -1923,8 +1923,8 @@ LINT_DEFS	+= -Dunix
 #	can't process the -Y I, flag.
 #
 NATIVE_INC_PATH += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common
-AS_INC_PATH	+= $(INC_PATH) -I$(UTSBASE)/common
-INCLUDE_PATH    += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common
+AS_INC_PATH	+= $(INC_PATH) -I$(UTSBASE)/common -I$(UTSBASE)/common/compat/linux
+INCLUDE_PATH    += $(INC_PATH) $(CCYFLAG)$(UTSBASE)/common -I$(UTSBASE)/common/compat/linux
 
 PCIEB_OBJS += pcieb.o
 

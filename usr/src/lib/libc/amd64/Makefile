@@ -1030,7 +1030,8 @@ $(DYNLIB) := BUILD.SO = $(LD) -o $@ -G $(DYNFLAGS) $(PICS) $(ALTPICS) $(EXTPICS)
 MAPFILES =	$(LIBCDIR)/port/mapfile-vers
 
 CPPFLAGS=	-D_REENTRANT -D$(MACH64) -D__$(MACH64) $(THREAD_DEBUG) \
-		-I. -I$(LIBCBASE)/inc -I$(LIBCDIR)/inc $(CPPFLAGS.master)
+		-I. -I$(LIBCBASE)/inc -I$(LIBCDIR)/inc -I$(ROOT)/usr/include/compat/linux \
+		 $(CPPFLAGS.master)
 ASFLAGS=	$(AS_PICFLAGS) -P -D__STDC__ -D_ASM $(CPPFLAGS) \
 		$(amd64_AS_XARCH)
 
